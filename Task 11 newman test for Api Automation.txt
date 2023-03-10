@@ -1,0 +1,139 @@
+Swagger Petstore
+
+? pet / {petId}
++ Find pet by ID
+  GET https://petstore.swagger.io/v2/pet/{{nameid}} [404 Not Found, 440B, 1350ms]
+
++ Updates a pet in the store with form data
+  POST https://petstore.swagger.io/v2/pet/<long> [404 Not Found, 436B, 283ms]
+
++ Deletes a pet
+  DELETE {{baseUrlPets}}/<long> [errored]
+     getaddrinfo ENOTFOUND {{baseurlpets}}
+
++ uploads an image
+  +
+  ¦ 'Form param `file`, file load error: missing file source'
+  +
+  POST {{baseUrlPets}}/pet/<long>/uploadImage [errored]
+     getaddrinfo ENOTFOUND {{baseurlpets}}
+
+? pet
++ Add a new pet to the store
+  POST https://petstore.swagger.io/v2/pet [500 Server Error, 400B, 562ms]
+
++ Update an existing pet
+  PUT https://petstore.swagger.io/v2/pet [500 Server Error, 400B, 246ms]
+
++ Finds Pets by status
+  GET {{baseUrlPets}}/findByStatus?status=available&status=available [errored]
+     getaddrinfo ENOTFOUND {{baseurlpets}}
+  4? JSONError in test-script
+
++ Finds Pets by tags
+  GET {{baseUrlPets}}/findByTags?tags=<string>&tags=<string> [errored]
+     getaddrinfo ENOTFOUND {{baseurlpets}}
+  6. Status code is 200
+
+? store / order / {orderId}
++ Find purchase order by ID
+  GET https://petstore.swagger.io/v2/store/order/{{nameid}} [404 Not Found, 440B, 237ms]
+
++ Delete purchase order by ID
+  DELETE https://petstore.swagger.io/v2/store/order/{{nameid}} [404 Not Found, 440B, 245ms]
+
+? store / order
++ Place an order for a pet
+  POST https://petstore.swagger.io/v2/store/order [500 Server Error, 400B, 267ms]
+
+? store
++ Returns pet inventories by status
+  GET https://petstore.swagger.io/v2/store/inventory [200 OK, 459B, 252ms]
+  v  Status code is 200
+  +
+  ¦ {
+  ¦   sold: 22,
+  ¦   new: 4,
+  ¦   string: 52,
+  ¦   reserved: 2,
+  ¦   stat90: 1,
+  ¦   pending: 15,
+  ¦   flying: 1,
+  ¦   available: 894,
+  ¦   the_newest_test_status: 1,
+  ¦   totvs1: 1
+  ¦ }
+  +
+
+? user / {username}
++ Get user by user name
+  GET https://petstore.swagger.io/v2/user/<string> [404 Not Found, 385B, 243ms]
+
++ Updated user
+  PUT https://petstore.swagger.io/v2/user/<string> [500 Server Error, 400B, 252ms]
+
++ Delete user
+  DELETE https://petstore.swagger.io/v2/user/<string> [404 Not Found, 292B, 352ms]
+
+? user
++ Create user
+  POST https://petstore.swagger.io/v2/user [500 Server Error, 400B, 230ms]
+
++ Creates list of users with given input array
+  POST https://petstore.swagger.io/v2/user/createWithArray [500 Server Error, 400B, 239ms]
+
++ Creates list of users with given input array
+  POST https://petstore.swagger.io/v2/user/createWithList [500 Server Error, 400B, 240ms]
+
++ Logs user into the system
+  GET https://petstore.swagger.io/v2/user/login?username=<string>&password=<string> [200 OK, 471B, 762ms]
+
++ Logs out current logged in user session
+  GET https://petstore.swagger.io/v2/user/logout [200 OK, 370B, 420ms]
+
++---------------------------------------------------------------------+
+¦                         ¦            executed ¦              failed ¦
++-------------------------+---------------------+---------------------¦
+¦              iterations ¦                   1 ¦                   0 ¦
++-------------------------+---------------------+---------------------¦
+¦                requests ¦                  20 ¦                   4 ¦
++-------------------------+---------------------+---------------------¦
+¦            test-scripts ¦                   6 ¦                   1 ¦
++-------------------------+---------------------+---------------------¦
+¦      prerequest-scripts ¦                   0 ¦                   0 ¦
++-------------------------+---------------------+---------------------¦
+¦              assertions ¦                   2 ¦                   1 ¦
++---------------------------------------------------------------------¦
+¦ total run duration: 6.8s                                            ¦
++---------------------------------------------------------------------¦
+¦ total data received: 1.18kB (approx)                                ¦
++---------------------------------------------------------------------¦
+¦ average response time: 458ms [min: 230ms, max: 1350ms, s.d.: 373ms] ¦
++---------------------------------------------------------------------+
+
+  #  failure                detail
+
+ 1.  Error                  getaddrinfo ENOTFOUND {{baseurlpets}}
+                            at request
+                            inside "pet / {petId} / Deletes a pet"
+
+ 2.  Error                  getaddrinfo ENOTFOUND {{baseurlpets}}
+                            at request
+                            inside "pet / {petId} / uploads an image"
+
+ 3.  Error                  getaddrinfo ENOTFOUND {{baseurlpets}}
+                            at request
+                            inside "pet / Finds Pets by status"
+
+ 4.  JSONError              Unexpected token u in JSON at position 0
+                            at test-script
+                            inside "pet / Finds Pets by status"
+
+ 5.  Error                  getaddrinfo ENOTFOUND {{baseurlpets}}
+                            at request
+                            inside "pet / Finds Pets by tags"
+
+ 6.  AssertionError         Status code is 200
+                            expected { Object (id, _details, ...) } to have property 'code'
+                            at assertion:0 in test-script
+                            inside "pet / Finds Pets by tags"
